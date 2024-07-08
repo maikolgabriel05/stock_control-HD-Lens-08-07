@@ -1,0 +1,159 @@
+{% extends 'base_admin.html' %}
+{% block title %}Listagem de Clientes {% endblock title %}
+{% block content %}
+    {% load static %}
+
+    {% block extracss %}
+        <!-- Custom styles for this page -->
+        <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+    {% endblock extracss %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800"><strong>Clientes Cadastrados</strong></h1>
+        <div class="d-flex justify-content-between">
+            <p class="mb-4">-- Clientes cadastrados HD-Lens.</p>
+            <div class="mb-2 ml-auto">
+                <a href="{% url 'customers:create_customer' %}" style="margin-right: 30px !important;" class="btn btn-success">
+                    <i class="fas fa-download fa-sm text-white-50"></i>
+                    <span class="text"><strong>Cadastrar Cliente</strong></span>
+                </a>
+            </div>
+        </div>
+    
+    <hr>
+    
+        <!-- DataTales Example -->
+        <div class="card-body">
+            <div class="table-responsive">
+                <style>
+                    table {
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+
+                    th, td {
+                        border: 2px solid #333; /* Cor mais escura da borda */
+                        padding: 8px; /* Espaçamento interno */
+                        text-align: left;
+                    }
+
+                    th {
+                        background-color: #f2f2f2; /* Cor de fundo do cabeçalho */
+                    }
+
+                    tr:nth-child(even) {
+                        background-color: #f9f9f9; /* Cor de fundo de linhas pares */
+                    }
+
+                    tr:hover {
+                        background-color: #d4d4d4; /* Cor de fundo ao passar o mouse sobre a linha */
+                    }
+                </style>
+
+                <table class="table table-bordered align-middle" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th><strong>Nome do Cliente</strong></th>
+                            <th><strong>CNPJ/CPF</strong></th>
+                            <th><strong>Email</strong></th>
+                            <th><strong>Estado</strong></th>
+                            <th><strong>Cidade</strong></th>
+                            <th><strong>Endereço</strong></th>
+                            <th><strong>Ação</strong></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th><strong>Nome do Cliente</strong></th>
+                            <th><strong>CNPJ/CPF</strong></th>
+                            <th><strong>Email</strong></th>
+                            <th><strong>Estado</strong></th>
+                            <th><strong>Cidade</strong></th>
+                            <th><strong>Endereço</strong></th>
+                            <th><strong>Ação</strong></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for customer in customers %}
+                        <tr>
+                            <!-- Produto, NCM, Preço Estoque, -->
+                            <td class="align-middle text-center">{{ customer.name }}</td>
+                            <td class="align-middle text-center"><strong>{{ customer.cnpj }}</strong></td>
+                            <td class="align-middle text-center">{{ customer.email }}</td>
+                            <td class="align-middle text-center">{{ customer.state }}</td>
+                            <td class="align-middle text-center">{{ customer.city }}</td>
+                            <td class="align-middle text-center">{{ customer.address }}</td>
+                            <td class="d-flex flex-column">
+                                <!-- Editar Cliente-->
+                                <div class="mb-2">
+                                    <a href="{% url 'customers:edit_customer' customer.pk %}" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-flag"></i>
+                                        </span>
+                                        <span class="text">Editar Cliente</span>
+                                    </a>
+                                </div>
+                                <!-- Deletar Cliente -->
+                                <div class="mb-2">
+                                    <a href="{% url 'customers:delete_customer' customer.pk %}" class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                                        <span class="text">Deletar Cliente</span>
+                                    </a>
+                                </div>
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+    <!-- End of Main Content -->
+
+    <!-- End of Content Wrapper -->
+
+    <!-- End of Page Wrapper -->
+    
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block extrascripts %}
+
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+    {% endblock extrascripts %}
+
+</body>
+{% endblock content %}

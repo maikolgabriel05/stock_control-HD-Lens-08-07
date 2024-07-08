@@ -1,0 +1,33 @@
+asgiref==3.6.0
+attrs==23.1.0
+dj-config-url==0.1.1
+dj-database-url==1.2.0
+Django==3.2.25
+djangorestframework==3.14.0
+drf-spectacular==0.26.5
+gunicorn==20.1.0
+inflection==0.5.1
+jsonschema==4.19.1
+jsonschema-specifications==2023.7.1
+Pillow==9.4.0
+psycopg2==2.9.5
+psycopg2-binary==2.9.5
+pytz==2023.3.post1
+PyYAML==6.0.1
+referencing==0.30.2
+rpds-py==0.10.6
+sqlparse==0.4.3
+tzdata==2022.7
+uritemplate==4.1.1
+whitenoise==6.4.0
+
+# Django Extensions
+django-extensions==3.0.9
+django-widget-tweaks==1.4.8
+django-cpf-cnpj
+
+# Django CORS Headers
+django-cors-headers==3.7.0
+
+# Python Decouple
+python-decouple==3.3

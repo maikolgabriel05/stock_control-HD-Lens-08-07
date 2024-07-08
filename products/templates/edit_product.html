@@ -1,0 +1,83 @@
+{% extends 'base_admin.html' %}
+{% block title %}Edição de cliente {% endblock title %}
+{% block content %}
+  {% load static %}
+
+  <form method="post" onsubmit="return validateForm()">
+    {% csrf_token %}
+    <p class="mb-4"> </p>
+    <div class="container-fluid">
+      <h1 class="h3 mb-2 text-gray-800"><strong>Editar Produto</strong></h1>
+      <p class="mb-4">Edite as informações do Produto</p>
+      <hr/>
+      <p class="mb-4"> </p>
+      <div class="mb-3">
+        <label for="formFile" class="form-label"><strong>Nome do Produto</strong></label>
+        {{ form.name }}
+      </div>
+      <div class="mb-3">
+        <label for="formFileMultiple" class="form-label"><strong>NCM</strong> (Nomenclatura Comum do Mercosul)</label>
+        {{ form.ncm }}
+        <div id="ncmError" style="color: red;"></div>
+      </div>
+      <div class="mb-3">
+        <label for="formFileMultiple" class="form-label"><strong>Preço do Produto</strong></label>
+        {{ form.price }}
+      </div>
+      <hr/>
+      <div class="mb-3">
+        <label for="formFileSm" class="form-label"><strong>Quantidade no Estoque</strong></label>
+        {{ form.stock}}
+      </div>
+      <div class="mb-3">
+        <label for="formFileSm" class="form-label"><strong>Data de Entrada</strong></label>
+        {{ form.manufacturing_date }}
+      </div>
+      <button type="submit" class="btn btn-primary"><strong>Salvar</strong></button>
+      <button type="button" class="btn btn-secondary btn-icon-split" onclick="window.location.href='{% url 'products:products' %}'">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">Voltar</span>
+      </button>
+    </div>
+  </form>
+
+  <script>
+    function validateInput() {
+      var ncmInput = document.getElementById('id_ncm');
+
+      // Remover caracteres não numéricos
+      ncmInput.value = ncmInput.value.replace(/[^0-9]/g, '');
+
+      // Limitar o comprimento a 8 caracteres
+      if (ncmInput.value.length > 8) {
+        ncmInput.value = ncmInput.value.slice(0, 8);
+      }
+    }
+  </script>
+
+  <script>
+    document.getElementById('id_ncm').setAttribute('oninput', 'validateInput()');
+  </script>
+
+  <script>
+    function validateForm() {
+      var ncmInput = document.getElementById('id_ncm');
+
+      // Remover caracteres não numéricos
+      ncmInput.value = ncmInput.value.replace(/[^0-9]/g, '');
+
+      // Limitar o comprimento a 8 caracteres
+      if (ncmInput.value.length > 8) {
+        ncmInput.value = ncmInput.value.slice(0, 8);
+      }
+
+      // Restante da validação, se necessário
+
+      // Retorna true para permitir o envio do formulário
+      return true;
+    }
+  </script>
+
+{% endblock content %}

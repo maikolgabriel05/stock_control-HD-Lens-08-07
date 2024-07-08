@@ -1,0 +1,35 @@
+/* Seu arquivo de estilos.css */
+
+.bg-gradient-primary {
+    background-color: #141452;
+}
+
+/* style.css */
+hr {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.mm-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.table {
+  margin-bottom: 0;
+}
+.table td {
+  padding: 0 .75rem;
+  vertical-align: middle;
+}
+.mytable tr td {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.w15 {
+  width: 15%;
+}
+.w40 {
+  width: 40%;
+}
+.close {
+  color: red;
+}

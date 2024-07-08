@@ -1,0 +1,108 @@
+{% extends "base_admin.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="shopping-content">
+        <link rel="stylesheet" href="{% static 'vendor/bulma/css/bulma.css' %}">
+        <div class="columns">
+            <div class="column">
+                <div class="card" x-data="getSales" x-init="init()">
+                    <div class="card-header">
+                        <p class="card-header-title">Carrinho de Compras</p>
+                    </div>
+                    <form @submit.prevent="saveData">
+                        <div class="card-content">
+                            <p class="card-header-title">Clientes</p>
+                            <!-- Seletor de Cliente -->
+                            <template x-if="customers.length > 0">
+                                <div class="select mb-3">
+                                    <select x-model="selectedCustomer">
+                                        <option value="">-- Selecione um Cliente --</option>
+                                        <template x-for="customer in customers">
+                                            <option :value="customer.pk" x-text="customer.name"></option>
+                                        </template>
+                                    </select>
+                                </div>
+                            </template>
+
+                            <hr style="border-top: 3px solid grey; margin-top: 30px;">
+
+                            <!-- Tabela de Itens do Carrinho -->
+                            <table class="table is-fullwidth is-hoverable">
+                                <thead>
+                                <tr>
+                                    <th>Produto</th>
+                                    <th>Quantidade</th>
+                                    <th>Preço</th>
+                                    <th colspan="2">Subtotal</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <template x-for="(sale, index) in sales">
+                                    <tr>
+                                        <td>
+                                            <div class="control">
+                                                <div class="select">
+                                                    <select :id="'id_item-' + index + '-product'"
+                                                            x-model="sale.product"
+                                                            x-ref="productSelects[index]"
+                                                            @change="findProduct(sale.product, index)">
+                                                        <option value="">--- Selecione um Produto ---</option>
+                                                        <template x-for="(product, index) in products"
+                                                                  :key="product.pk">
+                                                            <option :value="product.pk" x-text="product.name"
+                                                                    :selected="product.pk == sale.product"></option>
+                                                        </template>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input :id="'id_item-' + index + '-stock'" class="input" type="number"
+                                                   step="1" min="1" placeholder="Quantidade" x-model="sale.stock">
+                                        </td>
+                                        <td>
+                                            <input :id="'id_item-' + index + '-price'" class="input" type="number"
+                                                   step="0.01" min="0" placeholder="Preço" x-model="sale.price">
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-times has-text-danger" @click="removeRow(index)"></i>
+                                        </td>
+                                        <td class="has-text-right" x-text="(sale.stock * sale.price).toFixed(2)">
+                                        </td>
+                                    </tr>
+                                </template>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer">
+                            <div class="columns m-3">
+                                <div class="column is-half">
+                                    <!-- Definindo que esta coluna deve ocupar metade da largura -->
+                                    <button class="button is-primary" type="button" @click="addRow">Adicionar</button>
+                                    <!-- Botão "Adicionar" -->
+                                </div>
+                                <div class="column is-half">
+                                    <!-- Definindo que esta coluna deve ocupar metade da largura -->
+                                    <button class="button is-info ml-3" type="submit">Salvar</button>
+                                    <!-- Botão "Salvar" -->
+                                </div>
+                            </div>
+                            <div class="column px-3">
+                                <div class="is-pulled-right">
+                                    <span class="title has-text-weight-bold mr-3">TOTAL</span>
+                                    <span class="title has-text-weight-bold" x-text="total"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block js %}
+    <script src="{% static 'js/main.js' %}"></script>
+{% endblock js %}

@@ -1,0 +1,76 @@
+
+{% extends 'base_admin.html' %}
+{% block title %}Criação de cliente {% endblock title %}
+{% block content %}
+  {% load static %}
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="container-fluid">
+         <h1 class="h3 mb-2 text-gray-800"><strong>Criar Cliente</strong></h1>
+         <p class="mb-4">Crie as informações do Cliente</p>
+      <hr/>
+      
+      <div class="mb-3">
+        <label for="formFile" class="form-label"><strong>Nome do Cliente</strong></label>
+        {{form.name}}
+        <!--    <input class="form-control" type="text" id="formFile">-->
+      </div>
+      
+      <div class="mb-3">
+        <label for="formFileMultiple" class="form-label"><strong>CNPJ/CPF</strong></label>
+        {{ form.cnpj }}
+        {% if form.cnpj.errors %} 
+          <div class="text-danger">
+            {% for error in form.cnpj.errors %}
+              {{ error }}
+            {% endfor %}
+            {% if 'invalid' in form.cnpj.errors %}
+              Por favor, insira um CPF ou CNPJ válido.
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+      
+      <div class="mb-3">
+        <label for="formFileMultiple" class="form-label"><strong>Email</strong></label>
+        {{ form.email }}
+        {% if form.email.errors %}
+          <div class="text-danger">
+            {% for error in form.email.errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      
+      <hr/>
+      
+      <div class="mb-3">
+        <label for="formFileSm" class="form-label"><strong>Estado</strong></label>
+        {{form.state}}
+      </div>
+      
+      <div class="mb-3">
+        <label for="formFileSm" class="form-label"><strong>Cidade</strong></label>
+        {{form.city}}
+      </div>
+      
+      <div class="mb-3">
+        <label for="formFileSm" class="form-label"><strong>Endereço</strong></label>
+        {{form.address}}
+      </div>
+    <hr/>
+    <hr/>
+      <button type="submit" class="btn btn-primary">Cadastrar Cliente</button>
+      
+      <button type="button" class="btn btn-secondary btn-icon-split" onclick="window.location.href=
+              '{% url 'customers:customers_list' %}'">
+        <span class="icon text-white-50">
+          <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">Voltar</span>
+      </button>
+    </div>
+  </form>
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends 'base_admin.html' %}
+{% block title %}Deletar Cliente {% endblock title %}
+{% block content %}
+  {% load static %}
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="container-fluid">
+      <h1 class="h3 mb-2 text-gray-800">Excluir Produto</h1>
+      <p class="mb-4">Você realmente deseja deletar <b>{{ product.name }}</b>?</p>
+
+      <button type="submit" class="btn btn-danger btn-icon-split">
+        <span class="icon text-white-50">
+          <i class="fas fa-trash"></i>
+        </span>
+        <span class="text">Deletar</span>
+      </button>
+      <button type="button" class="btn btn-primary btn-icon-split" onClick="history.go(-1)">
+        <span class="icon text-white-50">
+          <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">Voltar</span>
+      </button>
+    </div>
+  </form>
+{% endblock content %}
