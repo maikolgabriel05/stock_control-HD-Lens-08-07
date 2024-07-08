@@ -6,4 +6,3 @@ env
 staticfiles
 db.sqlite3
 .rar
-migrations/
